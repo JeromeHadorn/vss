@@ -1,0 +1,5 @@
+# ignore executable files
+*.exe
+*.dll
+*.so
+main
