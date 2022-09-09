@@ -1,10 +1,8 @@
-//go:build !windows
+// go:build !windows
 // +build !windows
 package vss
 
-import (
-	"errors"
-)
+import "errors"
 
 type Snapshotter struct{}
 

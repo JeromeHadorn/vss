@@ -13,7 +13,7 @@ var (
 	drive       = flag.String("D", "", "Drive letter to copy (required)")
 	symlinkPath = flag.String("S", "", "Path of symlink folder that points to the snapshot")
 	force       = flag.Bool("f", false, "Creates snapshots if available shadow storage is low. Could delete old copies!")
-	timeout     = flag.Int("timeout", 30, "Snapshot creation timeout in seconds")
+	timeout     = flag.Int("timeout", 180, "Snapshot creation timeout in seconds (minimum 180)")
 )
 
 func main() {
