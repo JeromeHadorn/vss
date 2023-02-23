@@ -1,3 +1,6 @@
+//go:build windows
+// +build windows
+
 package vss
 
 import (
@@ -6,8 +9,6 @@ import (
 
 	"github.com/go-ole/go-ole"
 )
-
-var a = VSS_Create_VSS_BACKUP_COMPONENTS_386
 
 type Snapshotter struct{}
 
