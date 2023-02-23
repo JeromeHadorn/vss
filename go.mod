@@ -1,6 +1,6 @@
 module github.com/jeromehadorn/vss
 
-go 1.20
+go 1.17
 
 require github.com/go-ole/go-ole v1.2.6
 
