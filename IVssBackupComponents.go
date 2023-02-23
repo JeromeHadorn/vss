@@ -1,6 +1,6 @@
-//go:build windows
 // +build windows
-package api
+
+package vss
 
 import (
 	"C"
@@ -12,7 +12,7 @@ import (
 	ole "github.com/go-ole/go-ole"
 )
 
-//NOTE: Microsoft Documentation can be found here: https://docs.microsoft.com/en-us/windows/win32/api/vsbackup/nl-vsbackup-ivssbackupcomponents, I stole most of the comments from that site
+// NOTE: Microsoft Documentation can be found here: https://docs.microsoft.com/en-us/windows/win32/api/vsbackup/nl-vsbackup-ivssbackupcomponents, I stole most of the comments from that site
 const VSS_Create_VSS_BACKUP_COMPONENTS = "?CreateVssBackupComponents@@YAJPEAPEAVIVssBackupComponents@@@Z"
 const VSS_Create_VSS_BACKUP_COMPONENTS_386 = "?CreateVssBackupComponents@@YGJPAPAVIVssBackupComponents@@@Z"
 

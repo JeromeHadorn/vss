@@ -1,6 +1,4 @@
-//go:build windows
-// +build windows
-package api
+package vss
 
 //NOTE: Microsoft Documentation can be found here: https://docs.microsoft.com/en-us/windows/win32/api/vss/ne-vss-vss_volume_snapshot_attributes
 
@@ -72,7 +70,7 @@ func parseAttributesBitmask(code int32) VSS_VOLUME_SNAPSHOT_ATTRIBUTES {
 	}
 }
 
-//TODO: Possibility to add more attributes
+// TODO: Possibility to add more attributes
 func (a VSS_VOLUME_SNAPSHOT_ATTRIBUTES) Verbose() []string {
 	var attributes []string
 	if a.Persistent {

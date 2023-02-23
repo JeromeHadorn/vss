@@ -1,6 +1,4 @@
-//go:build windows
-// +build windows
-package api
+package vss
 
 import (
 	"time"
@@ -106,4 +104,19 @@ func convertWindowsTimeToUnixTime(winTime uint64) time.Time {
 	temp := t / TICKS_PER_SECOND   //convert from 100ns intervals to seconds;
 	temp = temp - EPOCH_DIFFERENCE //subtract number of seconds between epochs
 	return time.Unix(temp, 0)
+}
+
+func ParseProperties(p VssSnapshotProperties) (SnapshotDetails, error) {
+	return SnapshotDetails{
+		Id:                 p.GetSnapshotId(),
+		ProviderID:         p.GetProviderId(),
+		Status:             p.GetSnapshotStatus(),
+		DeviceObject:       p.GetSnapshotDeviceObject(),
+		VolumeName:         p.GetOriginalVolume(),
+		OriginatingMachine: p.GetOriginatingMachine(),
+		ServiceMachine:     p.GetServiceMachine(),
+		ExposedName:        p.GetExposedName(),
+		Attributes:         p.GetSnapshotAttributes(),
+		InstallDate:        p.GetCreationTimeStamp(),
+	}, nil
 }

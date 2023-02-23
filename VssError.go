@@ -1,6 +1,4 @@
-//go:build windows
-// +build windows
-package api
+package vss
 
 import "fmt"
 

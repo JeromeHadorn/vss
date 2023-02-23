@@ -1,19 +1,28 @@
-// go:build !windows
+//go:build !windows
 // +build !windows
+
 package vss
 
-import "errors"
+import (
+	"errors"
+)
 
 type Snapshotter struct{}
 
 func (v *Snapshotter) CreateSnapshot(drive string, timeout int, force bool) (*Snapshot, error) {
-	return nil, errors.New("no snapshot can be created on non windows systems")
+
+	return nil, errors.New("not yet implemented")
 }
 
 func (v *Snapshotter) Details(id string) (*Snapshot, error) {
-	return nil, errors.New("no snapshot details can be returned on a non windows systems")
+	return nil, errors.New("not yet implemented")
 }
 
 func (v *Snapshotter) DeleteSnapshot(id string) error {
-	return errors.New("no snapshot can be deleted on non windows systems")
+	return errors.New("not yet implemented")
+}
+
+// Cleanup Method. Called if an error occurs during creation of a snapshot.
+func (v *Snapshotter) deleteOnFailure(finished *bool, snapshotId string) {
+
 }

@@ -1,5 +1,3 @@
-//go:build windows
-// +build windows
 package vss
 
 import (
@@ -7,8 +5,9 @@ import (
 	"fmt"
 
 	"github.com/go-ole/go-ole"
-	"github.com/jeromehadorn/vss/api"
 )
+
+var a = VSS_Create_VSS_BACKUP_COMPONENTS_386
 
 type Snapshotter struct{}
 
@@ -22,21 +21,21 @@ func (v *Snapshotter) CreateSnapshot(drive string, timeout int, force bool) (*Sn
 	// Initalize COM Library
 	ole.CoInitialize(0)
 	defer ole.CoUninitialize()
-	vssBackupComponent, err := api.LoadAndInitVSS()
+	vssBackupComponent, err := LoadAndInitVSS()
 	if err != nil {
 		return nil, err
 	}
 
-	if err := vssBackupComponent.SetContext(api.VSS_CTX_ALL); err != nil {
+	if err := vssBackupComponent.SetContext(VSS_CTX_BACKUP); err != nil {
 		vssBackupComponent.Release()
 		return nil, err
 	}
 
-	if err := vssBackupComponent.SetBackupState(api.VSS_BT_COPY); err != nil {
+	if err := vssBackupComponent.SetBackupState(VSS_BT_COPY); err != nil {
 		return nil, err
 	}
 
-	var async *api.IVssAsync
+	var async *IVssAsync
 
 	if async, err = vssBackupComponent.GatherWriterMetadata(); err != nil {
 		return nil, fmt.Errorf("VSS_GATHER - Shadow copy creation failed: GatherWriterMetadata, err: %s", err)
@@ -107,15 +106,15 @@ func (v *Snapshotter) CreateSnapshot(drive string, timeout int, force bool) (*Sn
 	async.Release()
 
 	// Gather Properties
-	properties := api.VssSnapshotProperties{}
+	properties := VssSnapshotProperties{}
 
 	if err = vssBackupComponent.GetSnapshotProperties(snapshotID, &properties); err != nil {
 		vssBackupComponent.AbortBackup()
 		vssBackupComponent.Release()
 		return nil, fmt.Errorf("VSS_PROPERTIES - GetSnapshotProperties, err: %s", err)
 	}
-
-	details, err := ParseProperties(properties)
+	details := SnapshotDetails{}
+	details, err = ParseProperties(properties)
 
 	snapshot := Snapshot{
 		Id:      snapshotID.String(),

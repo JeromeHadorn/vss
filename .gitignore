@@ -4,3 +4,5 @@
 *.so
 main
 example
+.DS_Store
+bin

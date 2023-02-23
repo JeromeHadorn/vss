@@ -3,7 +3,7 @@ Windows API bindings for the `Volume Shadow Copy Service` in Golang for 32 and 6
 ## Build
 You can either import the vss api bindings into your project or use the CLI application. The CLI application can be called with the following command:
 ```shell
-go build -o vss /cmd/example/*
+make build
 ```
 
 ## Usage

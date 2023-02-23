@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"regexp"
-
-	"github.com/jeromehadorn/vss"
+	
+	vss "github.com/jeromehadorn/vss"
 )
+// "regexp"
 
 var (
 	drive       = flag.String("D", "", "Drive letter to copy (required)")
@@ -32,7 +32,6 @@ func main() {
 	fmt.Printf("Snapshot created: %s\n", snapshot.Id)
 
 	if symlinkPath != nil {
-		// SYMLINK here...
 		res, error := SymlinkSnapshot(*symlinkPath, snapshot.Id, snapshot.DeviceObjectPath)
 		if error != nil {
 			fmt.Println(error)
@@ -54,13 +53,13 @@ func validate() {
 		fmt.Fprintln(os.Stderr, `Error: Drive letter is required.`)
 		usage()
 	}
-	drivePattern := "[d-zD-Z]:"
-	match, _ := regexp.MatchString(drivePattern, *drive)
-	if !match {
-		fmt.Fprintln(os.Stderr, `Drive letter is invalid.`)
-		usage()
-		os.Exit(1)
-	}
+	// drivePattern := "[a-zA-Z]:\\$"
+	// match, _ := regexp.MatchString(drivePattern, *drive)
+	// if !match {
+	// 	fmt.Fprintln(os.Stderr, `Drive letter is invalid.`)
+	// 	usage()
+	// 	os.Exit(1)
+	// }
 
 	if *symlinkPath != "" {
 		// TODO: Ensure it's a valid path
