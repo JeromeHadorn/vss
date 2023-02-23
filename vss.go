@@ -10,7 +10,6 @@ import (
 type Snapshotter struct{}
 
 func (v *Snapshotter) CreateSnapshot(drive string, timeout int, force bool) (*Snapshot, error) {
-
 	return nil, errors.New("not yet implemented")
 }
 
@@ -18,7 +17,7 @@ func (v *Snapshotter) Details(id string) (*Snapshot, error) {
 	return nil, errors.New("not yet implemented")
 }
 
-func (v *Snapshotter) DeleteSnapshot(id string) error {
+func (v *Snapshotter) DeleteSnapshot(snapshotId string) error {
 	return errors.New("not yet implemented")
 }
 

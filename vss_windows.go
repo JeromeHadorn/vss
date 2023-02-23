@@ -143,8 +143,26 @@ func (v *Snapshotter) Details(id string) (*Snapshot, error) {
 	return nil, errors.New("not yet implemented")
 }
 
-func (v *Snapshotter) DeleteSnapshot(id string) error {
-	return errors.New("not yet implemented")
+func (v *Snapshotter) DeleteSnapshot(snapshotId string) error {
+	// Initalize COM Library
+	ole.CoInitialize(0)
+	defer ole.CoUninitialize()
+
+	vssBackupComponent, err := LoadAndInitVSS()
+	if err != nil || vssBackupComponent == nil {
+		return err
+	}
+
+	defer vssBackupComponent.Release()
+
+	id := ole.NewGUID(snapshotId)
+
+	if deletedGUID, _, err := vssBackupComponent.DeleteSnapshots(*id); err != nil {
+		vssBackupComponent.AbortBackup()
+		vssBackupComponent.Release()
+		return fmt.Errorf("VSS_DELETE - Failed to delete the shadow copy: %s\n", deletedGUID.String())
+	}
+	return nil
 }
 
 // Cleanup Method. Called if an error occurs during creation of a snapshot.
