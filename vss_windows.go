@@ -4,7 +4,6 @@
 package vss
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/go-ole/go-ole"
@@ -139,10 +138,6 @@ func (v *Snapshotter) CreateSnapshot(drive string, timeout int, force bool) (*Sn
 	return &snapshot, nil
 }
 
-func (v *Snapshotter) Details(id string) (*Snapshot, error) {
-	return nil, errors.New("not yet implemented")
-}
-
 func (v *Snapshotter) DeleteSnapshot(snapshotId string) error {
 	// Initalize COM Library
 	ole.CoInitialize(0)
@@ -165,7 +160,6 @@ func (v *Snapshotter) DeleteSnapshot(snapshotId string) error {
 	return nil
 }
 
-// Cleanup Method. Called if an error occurs during creation of a snapshot.
 func (v *Snapshotter) deleteOnFailure(finished *bool, snapshotId string) {
 	if *finished {
 		return

@@ -66,5 +66,3 @@ func (async *IVssAsync) Cancel() error {
 	code, _, _ := syscall.Syscall(async.getVTable().cancel, 1, uintptr(unsafe.Pointer(async)), 0, 0)
 	return CreateVSSError("IVssAsync.cancel", code)
 }
-
-//TODO: expose QueryStatus method

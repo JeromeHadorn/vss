@@ -7,13 +7,12 @@ import (
 	
 	vss "github.com/jeromehadorn/vss"
 )
-// "regexp"
 
 var (
-	drive       = flag.String("D", "", "Drive letter to copy (required)")
-	symlinkPath = flag.String("S", "", "Path of symlink folder that points to the snapshot")
-	force       = flag.Bool("f", false, "Creates snapshots if available shadow storage is low. Could delete old copies!")
-	timeout     = flag.Int("timeout", 180, "Snapshot creation timeout in seconds (minimum 180)")
+	drive       = flag.String("D", "", "Drive letter to copy (example: C:\\)")
+	symlinkPath = flag.String("S", "", "Path of symlink folder")
+	force       = flag.Bool("f", false, "Creates snapshots if available shadow storage is low. Warning: Replaces older snapshots.")
+	timeout     = flag.Int("timeout", 180, "Snapshot creation timeout in seconds (min 180)")
 )
 
 func main() {
@@ -42,7 +41,7 @@ func main() {
 }
 
 func usage() {
-	fmt.Fprintln(os.Stderr, `usage:  ........
+	fmt.Fprintln(os.Stderr, `usage:  vss [options]
 	`)
 	flag.PrintDefaults()
 	os.Exit(1)
@@ -52,17 +51,6 @@ func validate() {
 	if *drive == "" {
 		fmt.Fprintln(os.Stderr, `Error: Drive letter is required.`)
 		usage()
-	}
-	// drivePattern := "[a-zA-Z]:\\$"
-	// match, _ := regexp.MatchString(drivePattern, *drive)
-	// if !match {
-	// 	fmt.Fprintln(os.Stderr, `Drive letter is invalid.`)
-	// 	usage()
-	// 	os.Exit(1)
-	// }
-
-	if *symlinkPath != "" {
-		// TODO: Ensure it's a valid path
 	}
 }
 

@@ -13,15 +13,12 @@ func (v *Snapshotter) CreateSnapshot(drive string, timeout int, force bool) (*Sn
 	return nil, errors.New("not yet implemented")
 }
 
-func (v *Snapshotter) Details(id string) (*Snapshot, error) {
-	return nil, errors.New("not yet implemented")
-}
-
 func (v *Snapshotter) DeleteSnapshot(snapshotId string) error {
 	return errors.New("not yet implemented")
 }
 
-// Cleanup Method. Called if an error occurs during creation of a snapshot.
 func (v *Snapshotter) deleteOnFailure(finished *bool, snapshotId string) {
-
+	if !*finished {
+		v.DeleteSnapshot(snapshotId)
+	}
 }

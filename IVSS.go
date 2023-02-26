@@ -125,7 +125,7 @@ func (s Snapshot) Validate() error {
 		return fmt.Errorf("snapshot is missing Id property")
 	}
 	if s.DeviceObjectPath == "" {
-		return errors.New("snapshot is missing DeviceObjectPath")
+		return errors.New("snapshot is missing DeviceObjectPath property")
 	}
 	return nil
 }

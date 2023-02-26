@@ -1,23 +1,35 @@
 # Golang VSS module
 Windows API bindings for the `Volume Shadow Copy Service` in Golang for 32 and 64-bit systems. Enables the user to duplicate entire drives during runtime without any file access issues. The API bindings are accompanied by a simple CLI tool that creates and symlinks Shadow Copies of a given drive.
 ## Build
-You can either import the vss api bindings into your project or use the CLI application. The CLI application can be called with the following command:
+You can either import the vss API bindings into your project or use the CLI application. The CLI application can be built with the following command:
+
+Cross-compilation is supported for 32 and 64-bit systems. The following commands will build the CLI application for the respective system:
+```shell
+make build_win32 # for 32-bit systems
+make build_win64 # for 64-bit systems
+```
+
+Regular build on Windows:
 ```shell
 make build
 ```
+
+NOTE: When building you need to set the `CGO_ENABLED` environment variable to `1` and the `GOOS` environment variable to `windows`. The `GOARCH` environment variable should be set to `386` or `amd64` depending on the system you are building for.
 
 ## Usage
 ```sh
 ./vss -h
 ```
 ```
-usage: 
-
+usage:  vss [options]
   -D string
-        Drive letter to copy (required)
+        Drive letter to copy (example: C:\)
   -S string
-        Path of symlink folder that points to the snapshot
-  -f    Creates snapshots if available shadow storage is low. Could delete old copies!
+        Path of symlink folder
+  -f    Creates snapshots if available shadow storage is low. Warning: Replaces older snapshots.
   -timeout int
-        Snapshot creation timeout in seconds (default 30)
+        Snapshot creation timeout in seconds (min 180) (default 180)
 ```
+
+## Docs
+Official MS Docs: https://docs.microsoft.com/en-us/windows/win32/api/vss/
